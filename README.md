@@ -1,2 +1,2 @@
-# expert-umbrella
+# technique-practice
 技术练习
