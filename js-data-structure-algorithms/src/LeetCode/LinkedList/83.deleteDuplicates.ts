@@ -13,4 +13,4 @@ function deleteDuplicates(head: TCycle): TCycle {
     }
   }
   return head
-};
+}

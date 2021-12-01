@@ -1,25 +1,25 @@
 function liseNode() {
-  const data = [];
-  const next = [];
+  const data = []
+  const next = []
 
   function addNode(index, p, val) {
-    next[p] = next[index];
+    next[p] = next[index]
 
-    next[index] = p;
+    next[index] = p
 
-    data[p] = val;
+    data[p] = val
   }
 
-  let head = 3;
-  data[3] = "a";
+  let head = 3
+  data[3] = 'a'
 
-  addNode(3, 5, "b");
-  addNode(5, 7, "c");
-  addNode(7, 1, "d");
-  addNode(3, 0, "e");
+  addNode(3, 5, 'b')
+  addNode(5, 7, 'c')
+  addNode(7, 1, 'd')
+  addNode(3, 0, 'e')
 
-  console.log('data',data);
-  console.log('next',next);
+  console.log('data', data)
+  console.log('next', next)
 }
 liseNode()
 

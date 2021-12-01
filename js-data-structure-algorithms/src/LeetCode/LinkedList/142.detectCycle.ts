@@ -7,15 +7,14 @@ import { TCycle } from './types'
 /**
  * 快慢指针
  * 3-2-0-4 | 4->2
- * slow: 3 2 0 4 
+ * slow: 3 2 0 4
  * fast: 2 0 2 4
  * 有环：
  * slow: 3 2
  * fast: 4 2
  */
 function detectCycle(head: TCycle): TCycle {
-
-  if (!head || !head.next) return null;
+  if (!head || !head.next) return null
 
   let slow: TCycle = head.next
   let fast: TCycle = head.next.next
@@ -34,8 +33,7 @@ function detectCycle(head: TCycle): TCycle {
   }
 
   return slow
-
-};
+}
 
 /*
  2(a+x) = (a+x) + n(x+y)
