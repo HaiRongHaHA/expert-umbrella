@@ -3,3 +3,4 @@ type LastChar<T> = T extends `${infer f}${infer s}` ? (s extends `` ? f : LastCh
 type A2 = LastChar<'BFE'> // 'E'
 type B2 = LastChar<'dev'> // 'v'
 type C2 = LastChar<''> // never
+type D2 = LastChar<'e'> // e
