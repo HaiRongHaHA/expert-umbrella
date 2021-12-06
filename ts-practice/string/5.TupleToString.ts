@@ -8,6 +8,7 @@ type A4 = TupleToString<['a', 'b', 'c']> // 'abc'
 type B4 = TupleToString<[]> // ''
 type C4 = TupleToString<['a']> // 'a'
 
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^解法2^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 type TupleToString2<T> = T extends [infer L, ...infer R]
   ? L extends string
     ? `${L}${TupleToString2<R>}`

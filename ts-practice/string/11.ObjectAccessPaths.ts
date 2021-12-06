@@ -20,8 +20,15 @@
 /*
 home.topBar.title | home.topBar.welcome | home.bottomBar.notes | login.username | login.password
 */
+type RemoveFirstDot<T> = T extends `.${infer L}` ? L : T
 
-type ObjectAccessPaths<Schema> = any
+type ObjectAccessPaths<T, Prev extends string = '', K = keyof T> = K extends keyof T
+  ? K extends string
+    ? T[K] extends Record<string, any>
+      ? ObjectAccessPaths<T[K], `${Prev}.${K}`>
+      : RemoveFirstDot<`${Prev}.${K}`>
+    : never
+  : never
 
 // 完成 createI18n 函数中的 ObjectAccessPaths<Schema>，限制函数i18n的参数为合法的属性访问字符串
 function createI18n<Schema>(schema: Schema): (path: ObjectAccessPaths<Schema>) => string {
@@ -49,5 +56,5 @@ i18n('home.topBar.title') // correct
 i18n('home.topBar.welcome') // correct
 i18n('home.bottomBar.notes') // correct
 
-// i18n('home.login.abc')              // error，不存在的属性
-// i18n('home.topBar')                 // error，没有到最后一个属性
+// i18n('home.login.abc') // error，不存在的属性
+// i18n('home.topBar') // error，没有到最后一个属性

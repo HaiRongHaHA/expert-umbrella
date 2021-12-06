@@ -4,5 +4,5 @@ type LengthOfString<T extends string, C extends string[] = []> = T extends ''
   ? LengthOfString<R, [...C, L]>
   : never
 
-type A = LengthOfString<'BFE.dev'> // 7
-type B = LengthOfString<''> // 0
+type A7 = LengthOfString<'BFE.dev'> // 7
+type B7 = LengthOfString<''> // 0

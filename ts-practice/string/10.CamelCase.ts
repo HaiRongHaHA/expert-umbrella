@@ -1,6 +1,6 @@
 import { CapitalizeString } from './1.CapitalizeString'
 
-type CamelCase<T extends string, S extends string = ''> = T extends ''
+export type CamelCase<T extends string, S extends string = ''> = T extends ''
   ? S
   : T extends `${infer L}-${infer R}`
   ? CamelCase<R, `${S}${CapitalizeString<L>}`>

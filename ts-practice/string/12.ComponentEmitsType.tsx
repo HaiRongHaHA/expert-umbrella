@@ -14,14 +14,37 @@
     onCloseItem?: (data: { item: any, index: number }) => void,
 }
 */
+// CamelCase
+import { CamelCase } from './10.CamelCase'
+type ComponentEmitsType<Emits> = {
+  [K in keyof Emits as `on${K extends string ? CamelCase<K> : ''}`]?: Emits[K] extends (
+    ...args: infer R
+  ) => any
+    ? (...args: R) => void
+    : Emits[K]
+}
 
-type ComponentEmitsType<Emits> = any
+type Source = {
+  'handle-open': (flag: boolean) => true
+  'preview-item': (data: { item: any; index: number }) => true
+  'close-item': (data: { item: any; index: number }) => true
+}
+
+type A = ComponentEmitsType<Source>
 
 function createComponent<Emits extends Record<string, any>>(
   emits: Emits
-): ComponentEmitsType<Emits> {
+): {
+  (props: ComponentEmitsType<Emits>): any
+} {
   return [{ emits }] as any
 }
+
+// function createComponent<Schema>(schema: Schema): {
+//   (props: ComponentEmitsType<Schema>): any
+// } {
+//   return [{ schema }] as any
+// }
 
 // 最后返回的 Component变量类型为一个合法的React组件类型，并且能够通过`on事件驼峰命名`的方式，监听定义的事件，并且能够自动推导出事件的参数类型
 const Component = createComponent({
@@ -29,6 +52,7 @@ const Component = createComponent({
   'preview-item': (data: { item: any; index: number }) => true,
   'close-item': (data: { item: any; index: number }) => true
 })
+
 console.log(
   <Component
     // onHandleOpen 的类型为 (flag: boolean) => void
@@ -40,7 +64,7 @@ console.log(
       console.log(a, index.toFixed(2))
     }}
     // 所有的监听事件属性都是可选属性，可以不传处理函数句柄
-    // onCloseItem={val => [{val}]}
+    onCloseItem={(val) => [{ val }]}
   />
 )
 
@@ -52,5 +76,5 @@ const Comp: { (props: { name: string; age: number; flag: boolean; id?: string })
 
 console.log(<Comp name="" age={1} flag />) // 正确
 console.log(<Comp name="" age={1} flag id="111" />) // 正确
-// console.log(<Comp name={1} age={1} flag/>)          // 错误，name为字符串类型
-// console.log(<Comp age={1} flag/>)                   // 错误，缺少必须属性name:string
+// console.log(<Comp name={1} age={1} flag />) // 错误，name为字符串类型
+// console.log(<Comp age={1} flag />) // 错误，缺少必须属性name:string
