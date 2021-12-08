@@ -3,12 +3,19 @@
  */
 
 class Mi {
+  static $instance: Mi
+  $name?: string
+  $createTime?: number
+
   getInfo() {
     console.log('createTime:', this.$createTime)
   }
 }
+type a = typeof Mi
 
-function Single(Constructor) {
+type b = InstanceType<a>
+
+function Single(Constructor: a): b {
   if (Constructor.$instance == null) {
     Constructor.prototype.$name = Constructor.name
     Constructor.prototype.$createTime = Date.now()

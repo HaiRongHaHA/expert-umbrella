@@ -1,4 +1,4 @@
-import { TupleToString } from './TupleToString'
+import { TupleToString } from './5.TupleToString'
 
 type Repeat<
   Char extends string,

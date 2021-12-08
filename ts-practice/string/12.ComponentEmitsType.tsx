@@ -25,6 +25,7 @@ type ComponentEmitsType<Emits> = {
 }
 
 type Source = {
+  name: string
   'handle-open': (flag: boolean) => true
   'preview-item': (data: { item: any; index: number }) => true
   'close-item': (data: { item: any; index: number }) => true
