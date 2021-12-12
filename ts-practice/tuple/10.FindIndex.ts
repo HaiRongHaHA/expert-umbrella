@@ -11,7 +11,7 @@ type Equal<T, K> = [T] extends [K] // any = 任何值  任何值 = any
     : false
   : false
 
-type FindIndex<T, V, P extends any[] = []> = T extends [infer L, ...infer R]
+export type FindIndex<T, V, P extends any[] = []> = T extends [infer L, ...infer R]
   ? Equal<L, V> extends true
     ? P['length']
     : FindIndex<R, V, [...P, L]>

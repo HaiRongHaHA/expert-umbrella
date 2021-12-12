@@ -25,9 +25,16 @@ type ooo3 = [any] extends [number] ? 1 : 0
 type ooo4 = number | string extends string ? 1 : 0
 
 // 触发分发
-type Boxed<T> = T extends string ? 1 : 0
-type ooo5 = Boxed<string | number[]> // 0 | 1;
+// type Boxed<T> = T extends string ? 1 : 0
+// type ooo5 = Boxed<string | number[]> // 0 | 1;
 
 // 在触发分发的时候，any是有这个特性的，但是在判断是否可以赋值的时候就不行
 // 在不分发的情况下，any可以赋值给number，但是string|number|symbol不行。
 // 在分发的情况下，any与string|number|symbol一样，有些子类型可以赋值给number，有些值类型不可以赋值给number，所以得到的是1|0
+
+type BoxedValue<T> = { value: T }
+type BoxedArray<T> = { array: T[] }
+type Boxed<T> = T extends any[] ? BoxedArray<T[number]> : BoxedValue<T>
+type T20 = Boxed<string> // BoxedValue<string>;
+type T21 = Boxed<number[]> // BoxedArray<number>;
+type T22 = Boxed<string | number[]> // BoxedValue<string> | BoxedArray<number>;
